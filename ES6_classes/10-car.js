@@ -34,14 +34,10 @@ export default class Car {
   }
 
   cloneCar() {
-    // Create a new instance of Car
     const clonedCar = new this.constructor();
-    
-    // Copy attributes from the current instance to the new instance
     clonedCar[brandSymbol] = this[brandSymbol];
     clonedCar[motorSymbol] = this[motorSymbol];
     clonedCar[colorSymbol] = this[colorSymbol];
-    
     return clonedCar;
   }
 }
