@@ -8,22 +8,15 @@ export default class Building {
       this._sqft = this._validateSqft(sqft);
     }
   
-    // Getter for sqft
-    get sqft() {
-      return this._sqft;
-    }
-  
-    // Abstract method
-    evacuationWarningMessage() {
-      throw new Error('Class extending Building must override evacuationWarningMessage');
-    }
-  
-    // Private validation method
     _validateSqft(sqft) {
-      if (typeof sqft !== 'number') {
-        throw new TypeError('sqft must be a number');
+      if (typeof sqft !== 'number' || sqft <= 0) {
+        throw new Error('Invalid sqft');
       }
       return sqft;
+    }
+  
+    get sqft() {
+      return this._sqft;
     }
   }
   
