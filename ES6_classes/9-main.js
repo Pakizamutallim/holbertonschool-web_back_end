@@ -1,5 +1,9 @@
-import { listOfStudents } from './9-hoisting.js';
+import { listOfStudents } from "./9-hoisting.js";
 
-test("listOfStudents has the correct length", () => {
-  expect(listOfStudents.length).toBe(5);
-});
+console.log(listOfStudents);
+
+const listPrinted = listOfStudents.map(
+    student => student.fullStudentDescription
+);
+
+console.log(listPrinted);
