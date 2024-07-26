@@ -1,8 +1,9 @@
 module.exports = {
     env: {
-      browser: false,
+      browser: true,
       es6: true,
       jest: true,
+      es2021: true,
     },
     extends: [
       'airbnb-base',
@@ -25,6 +26,12 @@ module.exports = {
         'LabeledStatement',
         'WithStatement',
       ],
+    },
+    rules: {
+      'import/extensions': ['error', 'ignorePackages', {
+        js: 'always',
+        jsx: 'always',
+      }],
     },
     overrides:[
       {
