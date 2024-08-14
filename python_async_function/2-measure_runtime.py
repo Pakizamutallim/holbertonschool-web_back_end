@@ -5,12 +5,13 @@ This is a function
 
 
 import time
-from typing import Union
+import asyncio
 
 wait_n_module = __import__('1-concurrent_coroutines')
 wait_n = wait_n_module.wait_n
 
-def measure_time(n: int, max_delay: int) -> float:
+
+async def measure_time(n: int, max_delay: int) -> float:
     """
     Measures the total runtime of executing wait_n(n, max_delay)
     and returns the average time per coroutine.
@@ -26,5 +27,5 @@ def measure_time(n: int, max_delay: int) -> float:
     await wait_n(n, max_delay)
     end_time = time.time()
 
-    total_time = end_time - start_time  
+    total_time = end_time - start_time
     return total_time / n
