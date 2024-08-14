@@ -1,31 +1,62 @@
 #!/usr/bin/env python3
 """
-This is a function
+2-measure_runtime.py
+--------------------
+
+This script measures the average time taken per coroutine when running
+the 'wait_n' asynchronous function. It computes the total elapsed time
+and divides it by the number of coroutines to find the average time per
+coroutine.
+
+Modules:
+    asyncio: Provides support for asynchronous programming.
+    time: Provides various time-related functions.
+
+Functions:
+    measure_time(n: int, max_delay: int) -> float:
+        Asynchronously measures the average time taken per coroutine when
+        running 'wait_n' with the given parameters.
+
+Usage:
+    To use this script, you need to have the 'wait_n' function
+    implemented in the '1-concurrent_coroutines' module. This function
+    should be an asynchronous function that waits for a random delay
+    and returns the total list of delays.
+
+    Example:
+        n = 5
+        max_delay = 9
+        total_time = asyncio.run(measure_time(n, max_delay))
+        print(total_time)
 """
 
-
-import time
 import asyncio
-
-wait_n_module = __import__('1-concurrent_coroutines')
-wait_n = wait_n_module.wait_n
+import time
 
 
-async def measure_time(n: int, max_delay: int) -> float:
+# Importing the 'wait_n' function from the '1-concurrent_coroutines' module.
+wait_n = __import__('1-concurrent_coroutines').wait_n
+
+
+def measure_time(n: int, max_delay: int) -> float:
     """
-    Measures the total runtime of executing wait_n(n, max_delay)
-    and returns the average time per coroutine.
+    Measures the average elapsed time per coroutine when running 'wait_n'.
+
+    This function starts a timer before calling 'wait_n' with the given
+    parameters, waits for the execution of 'wait_n', and then calculates
+    the total elapsed time. It returns the average time per coroutine
+    by dividing the total time by the number of coroutines 'n'.
 
     Args:
-        n (int): Number of coroutines to spawn.
-        max_delay (int): Maximum delay for each coroutine.
+        n (int): The number of coroutines to run.
+        max_delay (int): The maximum delay for each coroutine.
 
     Returns:
-        float: Average runtime per coroutine.
+        float: The average time taken per coroutine in seconds.
     """
     start_time = time.time()
-    await wait_n(n, max_delay)
+    asyncio.run(wait_n(n, max_delay))
     end_time = time.time()
-
     total_time = end_time - start_time
+
     return total_time / n
