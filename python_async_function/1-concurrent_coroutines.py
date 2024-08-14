@@ -1,7 +1,21 @@
 #!/usr/bin/env python3
+"""
+This is a function
+"""
+
+
 import asyncio
+import importlib.util
 from typing import List
-from 0_basic_async_syntax import wait_random  # Adjust the import as necessary
+
+
+module_name = '0-basic_async_syntax'
+module_spec = importlib.util.find_spec(module_name)
+module = importlib.util.module_from_spec(module_spec)
+module_spec.loader.exec_module(module)
+
+wait_random = module.wait_random
+
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
     """
@@ -15,11 +29,6 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     Returns:
         List[float]: A list of delays in ascending order.
     """
-    tasks = [asyncio.create_task(wait_random(max_delay)) for _ in range(n)]
-    delays = []
-    
-    for task in asyncio.as_completed(tasks):
-        delay = await task
-        delays.append(delay)
-    
-    return delays
+    tasks = [wait_random(max_delay) for _ in range(n)]
+    delays = await asyncio.gather(*tasks)
+    return sorted(delays)
