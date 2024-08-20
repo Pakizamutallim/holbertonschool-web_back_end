@@ -44,4 +44,3 @@ class Server:
             return pages
         pages = self.dataset()
         return pages[start:end]
-    
