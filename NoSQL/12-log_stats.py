@@ -5,6 +5,7 @@ from pymongo import MongoClient
 
 METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
+
 def log_stats(mongo_collection):
     """Script that provides some stats about Nginx logs stored in MongoDB."""
     total_logs = mongo_collection.count_documents({})
