@@ -1,17 +1,19 @@
 // Display initial message
 console.log("Welcome to Holberton School, what is your name?");
 
-// Capture user input using stdin
-process.stdin.setEncoding('utf8');
+// Listen for user input from stdin
+process.stdin.on('data', (input) => {
+  // Convert the input buffer to a string and remove trailing spaces or newline characters
+  const name = input.toString().trim();
 
-// Listen for user input
-process.stdin.on('data', (data) => {
-  const name = data.trim();
+  // Display the user's name
   console.log(`Your name is: ${name}`);
+
+  // Close the input stream and display the closing message
   process.exit();
 });
 
-// Capture the process exit and display closing message
+// Handle process exit and display a message when the program closes
 process.on('exit', () => {
   console.log("This important software is now closing");
 });
